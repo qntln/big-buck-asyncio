@@ -1,0 +1,11 @@
+# Ignore env
+env/
+
+# Ignore ide dir
+.idea/
+
+# Ignore git directory
+.git/
+
+# Ignore all files in data directory
+data/
