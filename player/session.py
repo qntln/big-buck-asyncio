@@ -5,6 +5,7 @@ import logging
 
 import player.codec
 import player.terminal
+import player.tools
 
 
 class Session:
@@ -42,13 +43,19 @@ class Session:
 			metadata = player.codec.get_file_metadata(file)
 			sleep_time = 1.0 / metadata.frame_rate
 
+			stop_watch = player.tools.StopWatch()
 			for frame in player.codec.get_frames(file, metadata):
 				# Move cursor to top left corner
 				self._writer.write(player.terminal.RESET_CURSOR)
 				self._writer.write(frame)
 				await self._writer.drain()
 
-				await asyncio.sleep(sleep_time)
+				# We will have to correct sleep time and
+				# decrease how long it take to load one frame from it
+				t = max(0, stop_watch.lap() - sleep_time)
+				if sleep_time < t:
+					self._logger.error('Sleep time is less then reading overhead by = %.2f', t)
+				await asyncio.sleep(max(0, sleep_time - t))
 
 			await self._clear_screen()
 
