@@ -1,0 +1,79 @@
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(../../lib/font/source-sans-pro/source-sans-pro.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #222;
+$headingColor: #222;
+
+$mainFontSize: 38px;
+$mainFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: 600;
+$linkColor: #f66103;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-dark-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+	}
+}
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.current-fragment {
+	color: #cc5002;
+}
+
+.borderless { // Remove the ugly default border and shadow around images.
+	border: none;
+	box-shadow: none;
+}
+
+.reveal .slides {
+	.logo {
+		border: 0;
+		box-shadow: none;
+	}
+}
+
+section.has-dark-background a .email-name {
+	color: #fff; // "name@"
+}
+
+.intro-slide {
+	.logo {
+		max-width: 400px;
+		margin-bottom: 50px;
+	}
+	h4 {
+		font-weight: normal;
+	}
+}
+
+.thankyou-slide {
+	.logo {
+		max-width: 300px;
+		margin-bottom: 70px;
+	}
+}
