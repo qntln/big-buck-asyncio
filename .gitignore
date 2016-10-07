@@ -1,0 +1,24 @@
+# Ignore gitkeep
+!.gitkeep
+
+# Ignore example movie file
+!data/bigBuckBunny.asci.bz2
+!data/bigBuckBunny-big.asci.bz2
+
+# Python 3 compiled objects
+__pycache__
+
+# Ignore python 2 cache
+*.pyc
+
+# virtualenv
+env
+
+# Ide
+.idea
+
+# Unitest
+.coverage
+
+# Ignore all files in data directory
+data/
