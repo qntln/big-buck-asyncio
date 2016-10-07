@@ -1,5 +1,6 @@
 import asyncio
 import bz2
+import contextlib
 import logging
 
 import player.codec
@@ -24,6 +25,14 @@ class Session:
 
 	async def run(self) -> None:
 		'''
+		Wrapper which allow us to terminate session object
+		'''
+		self._run_future = asyncio.ensure_future(self._run())
+		await self._run_future
+
+
+	async def _run(self) -> None:
+		'''
 		Run loop which will stream frame by frame to writer
 		'''
 		self._logger.debug('Reading file = %s', self.filename)
@@ -42,6 +51,20 @@ class Session:
 				await asyncio.sleep(sleep_time)
 
 			await self._clear_screen()
+
+
+	async def terminate(self) -> None:
+		'''
+		Close writer and clenaup after session
+		'''
+		self._logger.debug('Terminating of session requested.')
+		if self._run_future is not None and not self._run_future.done():
+			self._run_future.cancel()
+
+			with contextlib.suppress(asyncio.CancelledError):
+				await self._run_future
+
+		self._writer.close()
 
 
 	async def _clear_screen(self) -> None:

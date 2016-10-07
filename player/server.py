@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import logging
 
 import player.session
@@ -32,7 +33,33 @@ class PlayerServer:
 		'''
 		Stop server and all sessions
 		'''
-		pass
+		self._logger.info('Server stopping')
+
+		self._server.close()
+		await self._server.wait_closed()
+
+		# Because dict cannot be changed during iteration
+		# we have to convert keys to list
+		for session_id in list(self._sessions.keys()):
+			self._logger.info('Terminating session = %s', session_id)
+			await self._killSession(session_id)
+
+
+	async def _killSession(self, session_id: str) -> None:
+		'''
+		Kill session and free it's resources
+		'''
+		try:
+			session = self._sessions[session_id]
+		except KeyError:
+			# Session was already killed
+			pass
+		else:
+			await session.terminate()
+
+			# The session could be removed during termination
+			with contextlib.suppress(KeyError):
+				del self._sessions[session_id]
 
 
 	async def _handle_client(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
@@ -50,3 +77,6 @@ class PlayerServer:
 			await session.run()
 		except (ConnectionResetError, BrokenPipeError,):
 			pass
+		finally:
+			await self._killSession(session_id)
+			self._logger.info('Session = %s was closed from = %s', session_id, ip_address)
