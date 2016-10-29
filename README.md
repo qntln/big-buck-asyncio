@@ -1,5 +1,7 @@
 # ASCII video player
 
+![example](example.png)
+
 This application is created for workshop on LinuxDays CZ 2016 about asyncio.
 
 In this repository is converted [Big Buck Bunny](https://peach.blender.org/about/) video
