@@ -1,13 +1,12 @@
 # Convert
 
-This it python 2.7 script used for converting video files to ascii encoded video files.
+This is a Python 2.7 script that converts _real_ video files to ASCII-encoded video files.
 
-This script is using [img2txt](https://github.com/hit9/img2txt) for converting frames
-of video to ascii art.
+This uses [img2txt](https://github.com/hit9/img2txt) to convert single video frames to ASCII art.
 
 ## Installation
 
-First prepare make sure you have `avconv` installed. On ubuntu like systems you can install it using
+First make sure that you have `avconv` installed. On Ubuntu-like systems you can install with
 
 ```
 sudo apt-get install libav-tools
@@ -20,8 +19,6 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-
-To convert video files use it using this command:
 
 ```
 ./convert.py <input file.avi> <output file.ascii>

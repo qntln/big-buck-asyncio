@@ -1,63 +1,57 @@
-# ASCII video player
+# Play ASCII video in telnet through the magic of asyncio
 
 ![example](example.png)
 
-This application is created for workshop on LinuxDays CZ 2016 about asyncio.
+This is a TCP server that streams colorful ASCII video in your terminal. Follow [the tags](https://github.com/qntln/big-buck-asyncio/releases) to see how this asyncio application was developed step by step.
 
-In this repository is converted [Big Buck Bunny](https://peach.blender.org/about/) video
-to ASCII art frames. You can read more about this movie on their web site: https://peach.blender.org/about/
+The server plays ASCII art video files created with the script bundled in `convert/convert.py`.
 
-Also to create ASCII art video files the [img2txt](https://github.com/hit9/img2txt) was used for separated
-frames. You can find more information in `./convert/README.md`.
-
-This is implementation of simple player server implemented using asyncio. It can replay ASCII art video files
-created using `./convert/` application.
-
-It will start TCP server which can then be accessed using for example telnet.
+To see the videos, simply connect to the server with telnet.
 
 
-You can find presentation to this workshop [here](https://qntln.github.io/big-buck-asyncio/#/)
+## Videos
 
-## Prerequisites
+This repository contains the [Big Buck Bunny](https://peach.blender.org/about/) movie converted to ASCII art frames.
 
-This project require **python 3.5** installed. If you don't have python 3.5 but you have docker installed
-then you can use `./bin/container.sh` wrapper which will run our application in python 3.5 image in docker.
+[img2txt](https://github.com/hit9/img2txt) was used to convert each video frame to ASCII art. Learn more about video conversion in `convert/README.md`.
 
-There are no other special prerequisites.
+## Requirements
+
+This project requires Python 3.5. If you don't have Python 3.5 but you have Docker installed you can use the `bin/container.sh` wrapper which will run our application in a Python 3.5 image in Docker.
+
+## Installation
  
-## Install
- 
-To install all required packages use:
+To install all required packages run:
 
 ```
 pip install -r requirements.txt
 ```
 
-## Usage
+## Running the server
 
-To run server use this simple command:
+To run the server use this simple command:
 
 ```
 ./bin/main.py <video file>
 ```
 
-Example:
+For example:
 
 ```
 ./bin/main.py bigBuckBunny.ascii.bz2
 ```
 
-Or if you don't have python 3.5 installed you can run our server in docker using this wrapper:
+Or, if you don't have Python 3.5 you can run our server in Docker using this wrapper:
 
 ```
 ./bin/container.sh
 ```
 
-It has no arguments and use file from above example to be replayed by default.
+It has no arguments and plays the above example file.
 
-## Accessing server
+## Accessing the server
 
-To access server simple use telnet:
+Simply use telnet:
 
 ```
 telnet localhost 8000
